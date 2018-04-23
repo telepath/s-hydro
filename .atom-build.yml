@@ -1,0 +1,28 @@
+cmd: "openscad-nightly"
+name: "preview"
+args:
+  - --preview
+  - --viewall
+  - --autocenter
+  - "{FILE_ACTIVE}"
+sh: false
+keymap: F5
+atomCommandName: openscad:preview
+targets:
+  export:
+    cmd: "openscad-nightly"
+    name: "export stl"
+    args:
+      - -o{FILE_ACTIVE_NAME_BASE}.stl
+      - "{FILE_ACTIVE}"
+    sh: false
+    keymap: F6
+    atomCommandName: openscad:export
+  slice:
+    cmd: "slicer"
+    name: "slicre stl"
+    args:
+      - --gui
+      - "{FILE_ACTIVE_NAME_BASE}.stl"
+    sh: false
+    atomCommandName: openscad:export
