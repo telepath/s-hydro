@@ -17,8 +17,8 @@ ThreadPitch=2.7;
 ToothHeight=1.35;
 ProfileRatio=0.4;
 ThreadAngle=20;
-Clearance=0.1;
-Backlash=0.1;
+Clearance=0.15;
+Backlash=0.15;
 
 /* outer_thread(); */
 /* inner_thread(); */

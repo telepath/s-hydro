@@ -27,6 +27,10 @@ rn=1;
 psq=0;
 //round
 prn=1;
+//drip nozzle in
+n1=3;
+//drip nozzle out
+n2=1.5;
 //thread slope length
 ts=5;
 //thread lenghth
@@ -56,7 +60,8 @@ shift = (yd/2 - floor(yd/2))-0.5;
 //    lid_hole();
 
 //planter();
-//outlet();
+/* outlet(); */
+/* borev2(); */
 //translate([0,0,5+tl+w])
     /* overflow(); */
 //dummy_lid();
@@ -84,8 +89,8 @@ module outlet(){
 //    render()
         difference(){
             male();
-            bore(90);
-            bore(270);
+            borev2(90);
+            borev2(270);
         }
         translate([0,0,ts])
             female();
@@ -96,6 +101,13 @@ module bore(r=0){
         translate([-bd/2-w*2,-w/2,w])
             rotate([0,15,0])
                 cube([bd,w,w*1.5]);
+}
+
+module borev2(r=0){
+    rotate([0,0,r])
+        translate([-bd/2-w*1.3,0,w*1.5])
+            rotate([0,110,0])
+                cylinder(d1=n1,d2=n2,h=w*2.5+tt);
 }
 
 module male(){
