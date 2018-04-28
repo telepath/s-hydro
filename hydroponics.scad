@@ -158,7 +158,7 @@ module finish_inset1(){
                     box(x,y,z,b);
                     translate([(d+b)*(xd-1)/2,(d+b)*shift,0]){
                       cylinder(d=bd+b*3,h=w*2*rn,center=true);
-                      cube([bd+b*3,bd+b*3,w*2],center=true);
+                      cube([bd+b*3,bd+b*3,w*2*sq],center=true);
                     }
             }
             bottom_inset();
