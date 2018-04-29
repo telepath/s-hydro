@@ -37,6 +37,8 @@ ts=5;
 tl = 8;
 //ThreadOuterDiameter
 t=ThreadOuterDiameter;
+//ThreadInnerDiameter
+ti=ThreadInnerDiameter;
 //treads wall thickness
 tt=w*1.5;
 //slope (distance)
@@ -71,9 +73,18 @@ shift = (yd/2 - floor(yd/2))-0.5;
 /* male(); */
 //%bottom_inset();
 
+/* color("blue") translate([0,0,-5]) oring(t=ti-w); */
+
+module oring(t=t){
+  difference(){
+    cylinder(d=t+w*2,h=w/2);
+    translate([0,0,-1])
+      cylinder(d=t,h=w/2+2);
+  }
+}
+
 module overflow(){
     h=wb-bh-ts-tl-w;
-    /* render() */
         male();
     translate([0,0,ts])
         difference(){
@@ -86,7 +97,6 @@ module overflow(){
 }
 
 module outlet(){
-//    render()
         difference(){
             male();
             borev2(90);
