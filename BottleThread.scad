@@ -1,4 +1,4 @@
-include <../Screw_Library/Thread_Library.scad>
+include <threaded-library/Thread_Library.scad>
 
 //$fn=32;
 //$fs=0.75;$fa=5;
@@ -23,7 +23,7 @@ Backlash=0.15;
 /* outer_thread(); */
 /* inner_thread(); */
 
-//nthread();
+/* nthread(); */
 
 module inner_thread(l=LidHeight,w=WallThickness){
     difference(){
@@ -38,23 +38,22 @@ module inner_thread(l=LidHeight,w=WallThickness){
 }
 
 module outer_thread(l=LidHeight,w=WallThickness){
-	/* render() */
     difference(){
-		cylinder(r=ThreadOuterDiameter/2+w,h=l);
+		    cylinder(r=ThreadOuterDiameter/2+w,h=l);
         translate([0,0,-ThreadPitch])
-          nthread();
-//	cylinder(r=ThreadOuterDiameter/2, h=l+1);
+          nthread(l=l+w*2);
+        /* cylinder(r=ThreadOuterDiameter/2, h=l+1); */
 	}
 }
 
-module nthread(){
+module nthread(l=TotalHeight){
 	// Most important thing -- thread
 
-	translate([0,0,ThreadPitch])
+	/* translate([0,0,ThreadPitch]) */
 		//trapezoidThread
 		trapezoidThreadNegativeSpace
 		(
-			length=TotalHeight,
+			length=l,
 			pitch=ThreadPitch,
 			pitchRadius=ThreadOuterDiameter/2+Clearance,
 			threadHeightToPitch=ToothHeight/ThreadPitch,
