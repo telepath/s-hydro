@@ -42,7 +42,7 @@ module outer_thread(l=LidHeight,w=WallThickness){
 		    cylinder(r=ThreadOuterDiameter/2+w,h=l);
         translate([0,0,-ThreadPitch])
           nthread(l=l+w*2);
-        /* cylinder(r=ThreadOuterDiameter/2, h=l+1); */
+        cylinder(r=ThreadOuterDiameter/2, h=l+1);
 	}
 }
 
