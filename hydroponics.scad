@@ -75,6 +75,17 @@ shift = (yd/2 - floor(yd/2))-0.5;
 
 /* color("blue") translate([0,0,-5]) oring(t=ti-w); */
 
+/* screwlid(); */
+
+module screwlid(){
+  translate([0,0,-tl])
+    inner_thread(tl,tt);
+  minkowski(){
+    sphere(d=w);
+    knob(l=0.01,w=w,d=(t-w)*2);
+  }
+}
+
 module oring(t=t){
   difference(){
     cylinder(d=t+w*2,h=w/2);

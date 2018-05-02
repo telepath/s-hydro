@@ -4,9 +4,9 @@ dmax = ThreadOuterDiameter*2;
 
 //knob_thread();
 
-module knob(l=LidHeight,w=WallThickness){
-    a=dmax/sqrt(2); //kantenlänge
-    d2=dmax*0.43;   //knubbel
+module knob(l=LidHeight,w=WallThickness,d=dmax){
+    a=d/sqrt(2); //kantenlänge
+    d2=d*0.43;   //knubbel
     d3=a/2;         //knubbel-aussparung
     o=a/2-d2/2;     //knubbel-offset
     o2=a/2-d2*0.05; //aussparungs-offset
