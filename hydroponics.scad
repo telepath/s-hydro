@@ -53,7 +53,7 @@ wb = z-wt;
 shift = (yd/2 - floor(yd/2))-0.5;
 
 //%finish();
-//%finish_inset1();
+/* finish_inset3(); */
 
 //translate([x+b,0,0])    //print
 //translate([0,0,z])        //display
@@ -148,6 +148,16 @@ module female(h=tl+w){
 module nut(){
     translate([(d+b)*(xd-1)/2,0,0])
         knob_thread(tl,tt);
+}
+
+module finish_inset3(){
+        difference(){
+            finish();
+            translate([(d+b)*(xd-1)/2,(d+b)*shift,0])
+                cylinder(d=t,h=w*2,center=true);
+        }
+        translate([(d+b)*(xd-1)/2,(d+b)*shift,-w/2])
+          female();
 }
 
 module finish_inset2(){
@@ -293,8 +303,8 @@ module lid_hole(){
     difference(){
         lid();
         translate([(d+b)*(xd-1)/2,(d+b)*shift,0]){
-                    cylinder(r=d/2*rn,h=w*5,center=true);
-                    cube([d*sq,d*sq,w*5],center=true);
+                    cylinder(r=d/2*prn,h=w*5,center=true);
+                    cube([d*psq,d*psq,w*5],center=true);
         }
     }
 }

@@ -11,4 +11,4 @@ sq=0;                       //square
 rn=1;                       //round
 
 rotate(90)
-    finish_inset1();
+    finish_inset3();
