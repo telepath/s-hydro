@@ -121,7 +121,6 @@ module borev2(r=0){
 }
 
 module male(){
-    /* render() */
     {
         translate([0,0,-tl])
             inner_thread(tl,tt);

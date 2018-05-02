@@ -25,4 +25,4 @@ targets:
       - --gui
       - "{FILE_ACTIVE_NAME_BASE}.stl"
     sh: false
-    atomCommandName: openscad:export
+    atomCommandName: slicer:gui
