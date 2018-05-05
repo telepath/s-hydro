@@ -11,13 +11,13 @@ WallThickness=2;
 // Thread parameters
 
 TotalHeight = 14;
-ThreadOuterDiameter=27.7;
+ThreadOuterDiameter=27.65;
 ThreadInnerDiameter=25.5; // Used only for cleanup.
 ThreadPitch=2.7;
-ToothHeight=1.35;
+ToothHeight=1.2;
 ProfileRatio=0.4;
 ThreadAngle=20;
-Clearance=0.15;
+Clearance=0.3;
 Backlash=0.15;
 
 /* outer_thread(); */
@@ -30,7 +30,7 @@ module inner_thread(l=LidHeight,w=WallThickness){
         intersection(){
             cylinder(r=ThreadOuterDiameter/2+w, h=l);
             translate([0,0,-ThreadPitch])
-              thread();
+              thread(l*2);
         }
         translate([0,0,-1])
             cylinder(r=ThreadOuterDiameter/2-w,h=l+w+2);
@@ -64,14 +64,14 @@ module nthread(l=TotalHeight){
 		);
 }
 
-module thread(){
+module thread(h=TotalHeight){
 	// Most important thing -- thread
 
 	translate([0,0,-ThreadPitch])
 		//trapezoidThread
 		trapezoidThread
 		(
-			length=TotalHeight,
+			length=h,
 			pitch=ThreadPitch,
 			pitchRadius=ThreadOuterDiameter/2-Clearance,
 			threadHeightToPitch=ToothHeight/ThreadPitch,
