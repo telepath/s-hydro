@@ -11,13 +11,13 @@ WallThickness=2;
 // Thread parameters
 
 TotalHeight = 14;
-ThreadOuterDiameter=27.65;
+ThreadOuterDiameter=27.7;
 ThreadInnerDiameter=25.5; // Used only for cleanup.
 ThreadPitch=2.7;
-ToothHeight=1.2;
+ToothHeight=1.35;
 ProfileRatio=0.4;
 ThreadAngle=20;
-Clearance=0.3;
+Clearance=0.15;
 Backlash=0.15;
 
 /* outer_thread(); */
