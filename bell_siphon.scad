@@ -4,38 +4,40 @@
 # shared by SnakeJayd under CC-BY, converted to GPLv3 for use in this project
 */
 
-siphon_inner_radius = 25;
-siphon_thickness = 3;
-siphon_outer_radius = siphon_inner_radius + siphon_thickness;
-siphon_height = 250;
+include <hydroponics.scad>
 
-snorkel_inner_radius = 5;
-snorkel_thickness = 2;
+siphon_inner_radius = t/2;
+siphon_thickness = w;
+siphon_outer_radius = siphon_inner_radius + siphon_thickness;
+siphon_height = wb;
+
+snorkel_inner_radius = siphon_inner_radius/5;
+snorkel_thickness = w;
 snorkel_outer_radius = snorkel_inner_radius + snorkel_thickness;
-snorkel_centre_displacement = 55;
+snorkel_centre_displacement = siphon_outer_radius*1.75;
 snorkel_centre_from_siphon = snorkel_centre_displacement - siphon_outer_radius;
 snorkel_outer_from_siphon_outer = snorkel_centre_from_siphon + snorkel_outer_radius;
 //snorkel_base_height = 210;
 snorkel_base_height = siphon_height - snorkel_outer_from_siphon_outer;
 
 webbing_length = snorkel_centre_displacement - siphon_outer_radius - snorkel_outer_radius;
-webbing_width = 2;
-webbing_start_height = 50;
+webbing_width = w;
+webbing_start_height = tl*2.5;
 webbing_height = snorkel_base_height - webbing_start_height;
 
 
-cup_inner_radius = 13;
-cup_thickness = 2;
+cup_inner_radius = snorkel_inner_radius+w*2;
+cup_thickness = w/2;
 cup_outer_radius = cup_inner_radius + cup_thickness;
-cup_height = 30;
+cup_height = tl*1.5;
 
-mount_block_radius = 8;
-mount_block_width = 45;
-mount_block_vert_offset = 20;
+mount_block_radius = w*2.5;
+mount_block_width = t;
+mount_block_vert_offset = w*2.5;
 mount_block_x_offset = siphon_outer_radius-(mount_block_radius);
 
-mount_peg_length = 10;
-mount_peg_radius = 2;
+mount_peg_length = t/4;
+mount_peg_radius = w/2;
 mount_peg_offset = mount_block_radius/2 + mount_block_x_offset;
 
 mount_ring_thickness = mount_peg_radius*2;
@@ -43,7 +45,7 @@ mount_ring_inner_radius = mount_block_width/2 + 2;
 mount_ring_outer_radius = mount_ring_inner_radius + mount_ring_thickness;
 
 
-$fn=100;
+/* $fn=100; */
 module hole_circle(inner, outer){
     difference(){
         circle(outer);
@@ -52,8 +54,9 @@ module hole_circle(inner, outer){
 }
 
 module chunk() {
-    translate([10,10,-40]) {
-        cube(50,50,50);
+    a=(t-tl)/2;
+    translate([a,-tl/2,-tl]) {
+        cube([tl,tl,tl*2]);
     }
 }
 
@@ -225,4 +228,6 @@ module cup() {
     mount_ring();
 
 }
-//cup();
+translate([0,0,t/2-w])
+  rotate([0,20,0])
+    cup();
