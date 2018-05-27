@@ -201,17 +201,21 @@ module female(h=tl+w){
 
 module nut(){
   translate([(d+b)*(xd-1)/2,0,0])
-  knob_thread(tl,tt);
+    knob_thread(tl,tt);
 }
 
 module finish_inset3(){
   difference(){
-    finish();
-    translate([(d+b)*(xd-1)/2,(d+b)*shift,0])
-    cylinder(d=t,h=w*2,center=true);
+    union() {
+      finish();
+      /* box(x,y,z,b); */
+      tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h=tl*1.5,h0=tl-w,iw=0);
+    }
+    translate([(d+b)*(xd-1)/2,(d+b)*shift,-w])
+      cylinder(d=t+w*2,h=z);
   }
   translate([(d+b)*(xd-1)/2,(d+b)*shift,-w/2])
-  female();
+    female();
 }
 
 module finish_inset2(){
@@ -439,5 +443,24 @@ module lid(){
     border(x,y,w*1.1,w);
     translate([0,0,-w])
     cube([x*2,y*2,w],center=true);
+  }
+}
+
+module tank_inner(xo=x/2,yo=0,h0=w*2,h=b,iw=b) {
+  difference() {
+    block(x,y,z-w,b,rn,sq);
+    intersection() {
+      block(x-iw,y-iw,z,b,rn,sq);
+      /* #cylinder(d=x-iw*2, h=z+w); */
+      translate([xo, yo, h0]) {
+        scale([1, x/y, 1]) {
+          cylinder(r1=0,r2=max(x,y), h=h);
+        }
+      }
+    }
+    translate([0, 0, h+h0]) {
+      block(x-iw,y-iw,z-w,b,rn,sq);
+      /* #cylinder(d=x-iw*2, h=z+w); */
+    }
   }
 }
