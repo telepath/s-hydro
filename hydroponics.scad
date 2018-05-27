@@ -95,21 +95,18 @@ module oring(t=t){
   }
 }
 
-module inflow(h=ts){
+module inflow(h=ts,n=4){
   difference(){
     male(h);
-    translate([0,0,0]){
-      inlet(0);
-      inlet(90);
-      inlet(180);
-      inlet(270);
+    for (i=[0:n-1]) {
+      inlet(i*360/n);
     }
   }
   translate([0,0,h])
     female();
 }
 
-module inlet(r=0){
+module inlet(r=0,w=w){
   rotate(r)
     intersection(){
       doublecone(d=t*2,h=w*1.5);
@@ -126,9 +123,9 @@ module doublecone(d,h){
   cylinder(d1=f,d2=d,h=h/2);
   difference(){
     translate([0,0,h/2])
-      cylinder(d=d,h=h);
+    cylinder(d=d,h=h);
     translate([0,0,h])
-      cylinder(d1=f,d2=d,h=h/2);
+    cylinder(d1=f,d2=d,h=h/2);
   }
 }
 
@@ -140,8 +137,19 @@ module connector(){
     inner_thread(l=tl*2,w=tt);
 }
 
-module pipe(){
-  h=wb-bh-ts-tl-w;
+module pipe(h=wb-bh-ts-tl-w,di=bd){
+  male();
+  translate([0,0,ts])
+  difference(){
+    cylinder(d=bd+w*2,h=h-ts-tl-w);
+    translate([0,0,-1])
+    cylinder(d=di,h=h-ts-tl-w+2);
+  }
+  translate([0,0,h-tl-w])
+  female();
+}
+
+module pipeend(h=wb-bh-ts-tl-w){
   male();
   translate([0,0,ts])
   difference(){
@@ -149,8 +157,6 @@ module pipe(){
     translate([0,0,-1])
     cylinder(d=bd,h=h-ts-tl-w+2);
   }
-  translate([0,0,h-tl-w])
-  female();
 }
 
 module outlet(){
@@ -177,14 +183,14 @@ module borev2(r=0){
   cylinder(d1=n1,d2=n2,h=w*2.5+tt);
 }
 
-module male(h=ts){
+module male(h=ts,s=0){
   translate([0,0,-tl])
     inner_thread(tl,tt);
   difference(){
     cylinder(d=bd+2*w,h=h);
-    cylinder(d2=bd,d1=t-tt*2,h=h);
+    cylinder(d2=bd,d1=t-tt*2-s,h=h);
       translate([0,0,-f])
-    cylinder(d=t-tt*2,h=h+2*f);
+    cylinder(d=t-tt*2-s,h=h+2*f);
       translate([0,0,h-f])
     cylinder(d=bd,h=2*f);
   }
@@ -206,9 +212,12 @@ module nut(){
 
 module finish_inset3(){
   difference(){
-    finish();
-    translate([(d+b)*(xd-1)/2,(d+b)*shift,0])
-    cylinder(d=t,h=w*2,center=true);
+    union() {
+      tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h0=w*2,h=b,iw=0);
+      finish();
+    }
+    translate([(d+b)*(xd-1)/2,(d+b)*shift,-w])
+    cylinder(d=t+w*2,h=z);
   }
   translate([(d+b)*(xd-1)/2,(d+b)*shift,-w/2])
   female();
@@ -439,5 +448,22 @@ module lid(){
     border(x,y,w*1.1,w);
     translate([0,0,-w])
     cube([x*2,y*2,w],center=true);
+  }
+}
+
+module tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h0=w*2,h=b,iw=b) {
+  difference() {
+    block(x,y,z-w,b,rn,sq);
+    intersection() {
+      block(x-iw*2,y-iw*2,z+w,b,rn,sq);
+      /* cylinder(d=x-b*2, h=z+w); */
+      translate([0, x/2, h0]) {
+        cylinder(r1=0,r2=max(x,y), h=h);
+      }
+    }
+    translate([0, 0, h+h0]) {
+      block(x-iw*2,y-iw*2,z+w,b,rn,sq);
+      /* cylinder(d=x-iw*2, h=z+w); */
+    }
   }
 }
