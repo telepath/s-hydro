@@ -457,7 +457,7 @@ module tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h0=w*2,h=b,iw=b) {
     intersection() {
       block(x-iw*2,y-iw*2,z+w,b,rn,sq);
       /* cylinder(d=x-b*2, h=z+w); */
-      translate([0, x/2, h0]) {
+      translate([xo, yo, h0]) {
         cylinder(r1=0,r2=max(x,y), h=h);
       }
     }
