@@ -1,3 +1,6 @@
 [submodule "threaded-library"]
 	path = threaded-library
 	url = git@github.com:telepath/threaded-library.git
+[submodule "v-hydro"]
+	path = v-hydro
+	url = git@github.com:telepath/v-hydro.git
