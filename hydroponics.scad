@@ -213,7 +213,7 @@ module nut(){
 module finish_inset3(){
   difference(){
     union() {
-      tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h0=w*2,h=b,iw=0);
+      tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h0=tl,h=b,iw=0);
       finish();
     }
     translate([(d+b)*(xd-1)/2,(d+b)*shift,-w])

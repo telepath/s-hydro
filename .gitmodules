@@ -1,6 +1,9 @@
-[submodule "threaded-library"]
-	path = threaded-library
-	url = git@github.com:telepath/threaded-library.git
-[submodule "v-hydro"]
-	path = v-hydro
-	url = git@github.com:telepath/v-hydro.git
+[submodule "lib/threaded-library"]
+	path = lib/threaded-library
+	url = ../threaded-library.git
+[submodule "lib/v-hydro"]
+	path = lib/v-hydro
+	url = ../v-hydro.git
+[submodule "lib/openscad-slicer-makefile"]
+	path = lib/openscad-slicer-makefile
+	url = ../openscad-slicer-makefile.git
