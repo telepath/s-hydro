@@ -2,11 +2,13 @@
 # original design by SnakeJayd
 # https://www.thingiverse.com/thing:2119390
 # shared by SnakeJayd under CC-BY, converted to GPLv3 for use in this project
+# additions by 3dp@itrichter.de
 */
 
 include <hydroponics.scad>
+include <large_config.scad>
 
-siphon_inner_radius = t/2;
+siphon_inner_radius = t*0.75;
 siphon_thickness = w;
 siphon_outer_radius = siphon_inner_radius + siphon_thickness;
 siphon_height = wb;
@@ -44,8 +46,22 @@ mount_ring_thickness = mount_peg_radius*2;
 mount_ring_inner_radius = mount_block_width/2 + 2;
 mount_ring_outer_radius = mount_ring_inner_radius + mount_ring_thickness;
 
+module feet(n=4) {
+  translate([0, 0, -tl]) {
+    difference() {
+      cylinder(r=siphon_outer_radius, h=tl);
+      translate([0, 0, -f]) {
+        cylinder(r=siphon_inner_radius, h=tl+f*2);
+      }
+      for (i=[0:n/2]) {
+        rotate(360/n*i) {
+          cube(size=[siphon_inner_radius,siphon_outer_radius*3,tl*2], center=true);
+        }
+      }
+    }
+  }
+}
 
-/* $fn=100; */
 module hole_circle(inner, outer){
     difference(){
         circle(outer);
@@ -174,9 +190,8 @@ module complete() {
     webbing();
     mount_points();
     lid();
+    feet();
 }
-
-complete();
 
 module mount_pegs() {
     translate([0,mount_ring_outer_radius,mount_peg_radius]){
@@ -226,8 +241,10 @@ module cup() {
         }
     }
     mount_ring();
-
 }
-translate([0,0,t/2-w])
+
+
+/* translate([0,0,t/2-w])
   rotate([0,20,0])
-    cup();
+    cup(); */
+/* complete(); */
