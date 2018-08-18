@@ -17,7 +17,7 @@ ThreadPitch=2.7;
 ToothHeight=1.35;
 ProfileRatio=0.4;
 ThreadAngle=20;
-Clearance=0.15;
+Clearance=0.1;
 Backlash=0.15;
 
 /* outer_thread(); */
@@ -25,28 +25,28 @@ Backlash=0.15;
 
 /* nthread(); */
 
-module inner_thread(l=LidHeight,w=WallThickness){
+module inner_thread(l=LidHeight,w=WallThickness,d=ThreadOuterDiameter){
     difference(){
         intersection(){
-            cylinder(r=ThreadOuterDiameter/2+w, h=l);
+            cylinder(r=d/2+w, h=l);
             translate([0,0,-ThreadPitch])
-              thread(l*2);
+              thread(l=l*2,d=d);
         }
         translate([0,0,-1])
-            cylinder(r=ThreadOuterDiameter/2-w,h=l+w+2);
+            cylinder(r=d/2-w,h=l+w+2);
 	}
 }
 
-module outer_thread(l=LidHeight,w=WallThickness){
+module outer_thread(l=LidHeight,w=WallThickness,d=ThreadOuterDiameter){
     difference(){
-		    cylinder(r=ThreadOuterDiameter/2+w,h=l);
+		    cylinder(r=d/2+w,h=l);
         translate([0,0,-ThreadPitch])
-          nthread(l=l+w*2);
-        cylinder(r=ThreadOuterDiameter/2, h=l+1);
+          nthread(l=l*2,d=d);
+        cylinder(r=d/2-w, h=l+1);
 	}
 }
 
-module nthread(l=TotalHeight){
+module nthread(l=TotalHeight,d=ThreadOuterDiameter){
 	// Most important thing -- thread
 
 	/* translate([0,0,ThreadPitch]) */
@@ -55,7 +55,7 @@ module nthread(l=TotalHeight){
 		(
 			length=l,
 			pitch=ThreadPitch,
-			pitchRadius=ThreadOuterDiameter/2+Clearance,
+			pitchRadius=d/2+Clearance,
 			threadHeightToPitch=ToothHeight/ThreadPitch,
 			profileRatio=ProfileRatio,
 			threadAngle=ThreadAngle,
@@ -64,16 +64,16 @@ module nthread(l=TotalHeight){
 		);
 }
 
-module thread(h=TotalHeight){
+module thread(l=TotalHeight,d=ThreadOuterDiameter){
 	// Most important thing -- thread
 
 	translate([0,0,-ThreadPitch])
 		//trapezoidThread
 		trapezoidThread
 		(
-			length=h,
+			length=l,
 			pitch=ThreadPitch,
-			pitchRadius=ThreadOuterDiameter/2-Clearance,
+			pitchRadius=d/2-Clearance,
 			threadHeightToPitch=ToothHeight/ThreadPitch,
 			profileRatio=ProfileRatio,
 			threadAngle=ThreadAngle,

@@ -4,7 +4,7 @@ dmax = ThreadOuterDiameter*2;
 
 //knob_thread();
 
-module knob(l=LidHeight,w=WallThickness,d=dmax){
+module knob(l=LidHeight,w=WallThickness,d=dmax,td=ThreadOuterDiameter){
     a=d/sqrt(2); //kantenlänge
     d2=d*0.43;   //knubbel
     d3=a/2;         //knubbel-aussparung
@@ -13,7 +13,7 @@ module knob(l=LidHeight,w=WallThickness,d=dmax){
     difference()
     {
         union(){
-            cylinder(d=ThreadOuterDiameter+w*3,h=l);
+            cylinder(d=td+w*3,h=l);
             hull()
             {
                 translate([-o,0,0])
@@ -39,12 +39,13 @@ module knob(l=LidHeight,w=WallThickness,d=dmax){
     }
 }
 
-module knob_thread(l=LidHeight,w=WallThickness){
-	render()
+module knob_thread(l=LidHeight,w=WallThickness,d=dmax,td=ThreadOuterDiameter){
+	/* render() */
     difference(){
 //		cylinder(r=ThreadOuterDiameter/2+w,h=l);
-        knob(l,w);
-        translate([0,0,-ThreadPitch]) nthread();
+        knob(l=l,w=w,td=td,d=d);
+        translate([0,0,-ThreadPitch]) nthread(l=l*2,d=td);
+        cylinder(r=td/2-w, h=l);
 //	cylinder(r=ThreadOuterDiameter/2, h=l+1);
 	}
 }

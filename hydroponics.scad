@@ -207,20 +207,21 @@ module female(h=tl+w){
 
 module nut(){
   translate([(d+b)*(xd-1)/2,0,0])
-  knob_thread(tl,tt);
+    knob_thread(tl,tt);
 }
 
 module finish_inset3(){
   difference(){
     union() {
-      tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h0=tl,h=b,iw=0);
       finish();
+      /* box(x,y,z,b); */
+      tank_inner(xo=(d+b)*(xd-1)/2,yo=(d+b)*shift,h=tl*1.5,h0=tl-w,iw=0);
     }
     translate([(d+b)*(xd-1)/2,(d+b)*shift,-w])
-    cylinder(d=t+w*2,h=z);
+      cylinder(d=t+w*2,h=z);
   }
   translate([(d+b)*(xd-1)/2,(d+b)*shift,-w/2])
-  female();
+    female();
 }
 
 module finish_inset2(){
