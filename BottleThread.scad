@@ -1,4 +1,4 @@
-include <threaded-library/Thread_Library.scad>
+include <lib/threaded-library/Thread_Library.scad>
 
 //$fn=32;
 //$fs=0.75;$fa=5;
