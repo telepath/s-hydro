@@ -1,4 +1,4 @@
-include <hydroponics.scad>
+include <lib/hydroponics.scad>
 
 xd = 3;                     //number of x planters
 yd = 3;                     //number of y planters

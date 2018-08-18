@@ -1,4 +1,4 @@
-include <hydroponics.scad>
+include <lib/hydroponics.scad>
 
 oring();
 

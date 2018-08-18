@@ -1,4 +1,4 @@
-include <hydroponics.scad>
+include <lib/hydroponics.scad>
 
 z = 150;                     //box height
 w=1.5;
