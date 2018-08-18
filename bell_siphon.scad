@@ -5,7 +5,7 @@
 # additions by 3dp@itrichter.de
 */
 
-include <hydroponics.scad>
+include <lib/hydroponics.scad>
 include <large_config.scad>
 
 siphon_inner_radius = t*0.75;
